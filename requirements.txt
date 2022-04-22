@@ -16,3 +16,4 @@ seaborn>=0.11.0
 vidgear~=0.2.5
 thop
 yt_dlp
+omegaconf~=2.1.2

@@ -2,10 +2,9 @@ from time import time
 import torch
 import numpy as np
 import cv2
+from omegaconf import OmegaConf
 
-YOLO_REPO_PATH = 'ultralytics/yolov5'
-YOLO_LOCAL_REPO_PATH = '../models'
-MODEL_NAME = 'yolov5x6'
+config = OmegaConf.load('config.yaml')
 
 
 def check_device():
@@ -15,7 +14,7 @@ def check_device():
 
 def load_model():
     # model = torch.hub.load(YOLO_LOCAL_REPO_PATH, MODEL_NAME, source='local', pretrained=True)
-    model = torch.hub.load(YOLO_REPO_PATH, MODEL_NAME, source='github', pretrained=True)
+    model = torch.hub.load(config.REPO.PATH, config.MODEL.NAME, source='github', pretrained=True)
     model_names = model.names
     return model, model_names
 

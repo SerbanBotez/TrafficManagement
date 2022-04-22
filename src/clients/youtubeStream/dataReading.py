@@ -2,22 +2,20 @@ import pickle
 import struct
 import imutils
 from vidgear.gears import CamGear
+from omegaconf import OmegaConf
 
-# TODO add constants to a config file
-WIDTH = 520
-HEIGHT = 520
-YOUTUBE_VIDEO = "https://www.youtube.com/watch?v=RQA5RcIZlAM"
+config = OmegaConf.load('../../../config.yaml')
 OPTIONS = {
-    "STREAM_RESOLUTION": "best",
-    "CAP_PROP_FRAME_WIDTH": WIDTH,
-    "CAP_PROP_FRAME_HEIGHT": HEIGHT,
-    "CAP_PROP_FPS": 60,
+    "STREAM_RESOLUTION": config.APP.SOURCES.YOUTUBE_VIDEO.OPTIONS.RESOLUTION,
+    "CAP_PROP_FRAME_WIDTH": config.APP.SOURCES.YOUTUBE_VIDEO.OPTIONS.WIDTH,
+    "CAP_PROP_FRAME_HEIGHT": config.APP.SOURCES.YOUTUBE_VIDEO.OPTIONS.HEIGHT,
+    "CAP_PROP_FPS": config.APP.SOURCES.YOUTUBE_VIDEO.OPTIONS.FPS,
 }
 
 
 def read_live_youtube_video(socket):
     stream = CamGear(
-        source=YOUTUBE_VIDEO,
+        source=config.APP.SOURCES.YOUTUBE_VIDEO.PATH,
         stream_mode=True,
         logging=True,
         **OPTIONS
@@ -28,7 +26,7 @@ def read_live_youtube_video(socket):
         if frame is None:
             break
 
-        frame = imutils.resize(frame, width=WIDTH, height=HEIGHT)
+        frame = imutils.resize(frame, width=config.APP.FRAME.WIDTH, height=config.APP.FRAME.HEIGHT)
 
         a = pickle.dumps(frame)
         message = struct.pack("Q", len(a)) + a

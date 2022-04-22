@@ -2,15 +2,16 @@ import cv2
 import struct
 import pickle
 from src.algorithms import detection
+from omegaconf import OmegaConf
 
+config = OmegaConf.load('config.yaml')
 PAYLOAD_SIZE = struct.calcsize("Q")
-SIZE = 1024
 
 
 def decode_video(conn, data, addr, model, model_names):
     while True:
         while len(data) < PAYLOAD_SIZE:
-            packet = conn.recv(4 * SIZE)  # 4K
+            packet = conn.recv(4 * config.SERVER.PKG_SIZE)  # 4K
             if not packet:
                 break
             data += packet
@@ -19,7 +20,7 @@ def decode_video(conn, data, addr, model, model_names):
         msg_size = struct.unpack("Q", packed_msg_size)[0]
 
         while len(data) < msg_size:
-            data += conn.recv(4 * SIZE)
+            data += conn.recv(4 * config.SERVER.PKG_SIZE)
         frame_data = data[:msg_size]
         data = data[msg_size:]
         frame = pickle.loads(frame_data)
