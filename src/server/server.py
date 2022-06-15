@@ -1,7 +1,8 @@
 import socket
 import threading
 from src.server import dataDecoding
-from src.algorithms import detection
+from src.algorithms import detection, centroidTracker
+from src.server import modelConfiguration
 from omegaconf import OmegaConf
 
 config = OmegaConf.load('config.yaml')
@@ -11,11 +12,13 @@ ADDR = (IP, config.SERVER.PORT)
 
 def handle_client(conn, addr):
     model, model_names = detection.load_model()
+    model = modelConfiguration.configure_model(model)
+    ct = centroidTracker.CentroidTracker(max_disappeared=20)
     connected = True
 
     while connected:
         data = conn.recv(config.SERVER.PKG_SIZE)
-        dataDecoding.decode_video(conn, data, addr, model, model_names)
+        dataDecoding.decode_video(conn, data, addr, model, model_names, ct)
 
     conn.close()
 

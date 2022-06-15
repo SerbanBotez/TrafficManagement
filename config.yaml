@@ -6,18 +6,24 @@ APP:
       PATH: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
       OPTIONS:
           RESOLUTION: "best"
-          WIDTH: 520
-          HEIGHT: 520
+          WIDTH: 500
+          HEIGHT: 500
           FPS: 60
     WEB_CAMERA:
       PATH: "https://live.freecam.ro/live/iasi-hotel-unirea?d=1608366225652"
   FRAME:
-    WIDTH: 520
-    HEIGHT: 520
+    WIDTH: 500
+    HEIGHT: 500
 REPO:
   PATH: 'ultralytics/yolov5'
 MODEL:
-  NAME: "yolov5x6"
+  NAME: "yolov5m6"
+  CLASSES:
+    bycicle: 1
+    car: 2
+    motorcycle: 3
+    bus: 5
+    truck: 7
 SERVER:
   PORT: 5566
   PKG_SIZE: 1024

@@ -8,7 +8,7 @@ config = OmegaConf.load('config.yaml')
 PAYLOAD_SIZE = struct.calcsize("Q")
 
 
-def decode_video(conn, data, addr, model, model_names):
+def decode_video(conn, data, addr, model, model_names, ct):
     while True:
         while len(data) < PAYLOAD_SIZE:
             packet = conn.recv(4 * config.SERVER.PKG_SIZE)  # 4K
@@ -25,9 +25,10 @@ def decode_video(conn, data, addr, model, model_names):
         data = data[msg_size:]
         frame = pickle.loads(frame_data)
 
-        frame = detection.detect(model, frame, model_names)
+        frame = detection.detect(model, frame, model_names, ct)
 
         cv2.imshow(f"RECEIVING VIDEO from {addr}", frame)
         key = cv2.waitKey(1) & 0xFF
+        # key = cv2.waitKey(0)
         if key == ord('q'):
             break
