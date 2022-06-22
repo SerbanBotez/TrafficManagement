@@ -14,6 +14,7 @@ APP:
   FRAME:
     WIDTH: 500
     HEIGHT: 500
+  DISSAPEARED_FRAMES_NR: 20
 REPO:
   PATH: 'ultralytics/yolov5'
 MODEL:

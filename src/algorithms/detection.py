@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import cv2
 from src.utils import drawCircle
+from src.database import writeData
 from omegaconf import OmegaConf
 
 config = OmegaConf.load('config.yaml')
@@ -35,7 +36,7 @@ def class_to_label(x, model_names):
     return classes[int(x)]
 
 
-def plot_boxes(current_results, current_frame, model_names, ct):
+def plot_boxes(current_results, current_frame, model_names, ct, influx_client):
     labels, cord = current_results
     n = len(labels)
     x_shape, y_shape = current_frame.shape[1], current_frame.shape[0]
@@ -61,15 +62,17 @@ def plot_boxes(current_results, current_frame, model_names, ct):
                 #             cv2.FONT_HERSHEY_SIMPLEX, 0.9,
                 #             bgr, 2)
     objects = ct.update(rectangles)
-    drawCircle.draw(current_frame, objects)
+
+    objects_number = drawCircle.draw(current_frame, objects)
+    writeData.write_data(influx_client, objects_number)
 
     return current_frame
 
 
-def detect(model, frame, model_names, ct):
+def detect(model, frame, model_names, ct, influx_client):
     start_time = time()
     results = score_frame(model, frame)
-    frame = plot_boxes(results, frame, model_names, ct)
+    frame = plot_boxes(results, frame, model_names, ct, influx_client)
     end_time = time()
 
     fps = 1 / np.round(end_time - start_time, 2)
