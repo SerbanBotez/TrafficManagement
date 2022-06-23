@@ -35,6 +35,5 @@ def decode_video(conn, data, addr, model, model_names, ct, influx_client):
 
         cv2.imshow(f"RECEIVING VIDEO from {addr}", frame)
         key = cv2.waitKey(1) & 0xFF
-        # key = cv2.waitKey(0)
         if key == ord('q'):
             break

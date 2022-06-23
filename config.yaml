@@ -1,11 +1,11 @@
 APP:
   SOURCES:
     LOCAL_VIDEO:
-      PATH: "../../assets/heavy_traffic2.mp4"
-      PATH2: "../../assets/traffic.mp4"
+      PATH: "../../assets/traffic.mp4"
+      PATH2: "../../assets/heavy_traffic2.mp4"
     YOUTUBE_VIDEO:
-      PATH: "https://www.youtube.com/watch?v=IbWpTJHV-8E"
-      PATH2: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
+      PATH: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
+      PATH2: "https://www.youtube.com/watch?v=IbWpTJHV-8E"
       OPTIONS:
           RESOLUTION: "best"
           WIDTH: 500
@@ -30,3 +30,7 @@ MODEL:
 SERVER:
   PORT: 5566
   PKG_SIZE: 1024
+DATABASE:
+  ORG: "TrafficManagementOrganization"
+  TOKEN: '8OQVJ79gKTjoLPuaQGItdz8XOb_MaRdLGErz5I6TK0wJI68sXXeIaaKYL3j0tdKxUupCaSKtlD5lzrnovu-HXw'
+  URL: "https://westeurope-1.azure.cloud2.influxdata.com"

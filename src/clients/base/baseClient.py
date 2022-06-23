@@ -16,4 +16,3 @@ def start_base_client(data_reading_callback):
     while connected:
         while True:
             data_reading_callback(client)
-

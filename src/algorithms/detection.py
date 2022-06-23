@@ -15,7 +15,6 @@ def check_device():
 
 
 def load_model():
-    # model = torch.hub.load(YOLO_LOCAL_REPO_PATH, MODEL_NAME, source='local', pretrained=True)
     model = torch.hub.load(config.REPO.PATH, config.MODEL.NAME, source='github', pretrained=True)
     model_names = model.names
     return model, model_names
@@ -47,8 +46,6 @@ def plot_boxes(current_results, current_frame, model_names, ct, influx_client):
     else:
         for i in range(n):
             row = cord[i]
-            # confidence = format(row[4], ".2f")
-            # print("Row: ", confidence, " ", class_to_label(labels[i], model_names))
             if row[4] >= 0.3 and class_to_label(labels[i], model_names) == "car" or row[4] >= 0.7 and class_to_label(
                     labels[i], model_names) != "car":
                 x1, y1, x2, y2 = int(row[0] * x_shape), int(row[1] * y_shape), int(row[2] * x_shape), int(
@@ -58,9 +55,6 @@ def plot_boxes(current_results, current_frame, model_names, ct, influx_client):
                 rectangles.append(rectangle_coordinate)
 
                 cv2.rectangle(current_frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-                # cv2.putText(current_frame, class_to_label(labels[i], model_names) + " " + confidence, (x1, y1),
-                #             cv2.FONT_HERSHEY_SIMPLEX, 0.9,
-                #             bgr, 2)
     objects = ct.update(rectangles)
 
     objects_number = drawCircle.draw(current_frame, objects)
