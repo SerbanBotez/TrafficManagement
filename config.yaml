@@ -2,22 +2,35 @@ APP:
   SOURCES:
     LOCAL_VIDEO:
       PATH: "../../assets/traffic.mp4"
+      PATH2: "../../assets/heavy_traffic2.mp4"
     YOUTUBE_VIDEO:
       PATH: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
+      PATH2: "https://www.youtube.com/watch?v=IbWpTJHV-8E"
       OPTIONS:
           RESOLUTION: "best"
-          WIDTH: 520
-          HEIGHT: 520
+          WIDTH: 500
+          HEIGHT: 500
           FPS: 60
     WEB_CAMERA:
       PATH: "https://live.freecam.ro/live/iasi-hotel-unirea?d=1608366225652"
   FRAME:
-    WIDTH: 520
-    HEIGHT: 520
+    WIDTH: 500
+    HEIGHT: 500
+  DISSAPEARED_FRAMES_NR: 20
 REPO:
   PATH: 'ultralytics/yolov5'
 MODEL:
-  NAME: "yolov5x6"
+  NAME: "yolov5m6"
+  CLASSES:
+    bycicle: 1
+    car: 2
+    motorcycle: 3
+    bus: 5
+    truck: 7
 SERVER:
   PORT: 5566
   PKG_SIZE: 1024
+DATABASE:
+  ORG: "TrafficManagementOrganization"
+  TOKEN: '8OQVJ79gKTjoLPuaQGItdz8XOb_MaRdLGErz5I6TK0wJI68sXXeIaaKYL3j0tdKxUupCaSKtlD5lzrnovu-HXw'
+  URL: "https://westeurope-1.azure.cloud2.influxdata.com"
