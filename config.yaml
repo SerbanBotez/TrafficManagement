@@ -1,9 +1,11 @@
 APP:
   SOURCES:
     LOCAL_VIDEO:
-      PATH: "../../assets/traffic.mp4"
+      PATH: "../../assets/heavy_traffic2.mp4"
+      PATH2: "../../assets/traffic.mp4"
     YOUTUBE_VIDEO:
-      PATH: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
+      PATH: "https://www.youtube.com/watch?v=IbWpTJHV-8E"
+      PATH2: "https://www.youtube.com/watch?v=RQA5RcIZlAM"
       OPTIONS:
           RESOLUTION: "best"
           WIDTH: 500
