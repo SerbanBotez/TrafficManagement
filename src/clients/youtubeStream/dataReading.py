@@ -21,6 +21,11 @@ def read_live_youtube_video(socket):
         **OPTIONS
     ).start()
 
+    data = 'youtube'
+    encoded_data = data.encode('utf-8')
+    socket.send(struct.pack('Q', len(encoded_data)))
+    socket.send(bytes(encoded_data))
+
     while True:
         frame = stream.read()
         if frame is None:
