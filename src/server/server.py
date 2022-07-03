@@ -1,4 +1,5 @@
 import socket
+import struct
 import threading
 from src.server import dataDecoding
 from src.algorithms import detection, centroidTracker
@@ -19,9 +20,13 @@ def handle_client(conn, addr):
 
     influx_client = setup.get_database_connection()
 
+    length_left = struct.unpack('Q', conn.recv(struct.calcsize('Q')))[0]
+    client_type = conn.recv(length_left).decode('utf-8')
+    # print(client_type)
+
     while connected:
         data = conn.recv(config.SERVER.PKG_SIZE)
-        dataDecoding.decode_video(conn, data, addr, model, model_names, ct, influx_client)
+        dataDecoding.decode_video(conn, data, addr, model, model_names, ct, influx_client, client_type)
 
     conn.close()
 

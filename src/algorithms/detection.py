@@ -35,7 +35,7 @@ def class_to_label(x, model_names):
     return classes[int(x)]
 
 
-def plot_boxes(current_results, current_frame, model_names, ct, influx_client):
+def plot_boxes(current_results, current_frame, model_names, ct, influx_client, client_type):
     labels, cord = current_results
     n = len(labels)
     x_shape, y_shape = current_frame.shape[1], current_frame.shape[0]
@@ -58,15 +58,15 @@ def plot_boxes(current_results, current_frame, model_names, ct, influx_client):
     objects = ct.update(rectangles)
 
     objects_number = drawCircle.draw(current_frame, objects)
-    writeData.write_data(influx_client, objects_number)
+    writeData.write_data(influx_client, client_type, objects_number)
 
     return current_frame
 
 
-def detect(model, frame, model_names, ct, influx_client):
+def detect(model, frame, model_names, ct, influx_client, client_type):
     start_time = time()
     results = score_frame(model, frame)
-    frame = plot_boxes(results, frame, model_names, ct, influx_client)
+    frame = plot_boxes(results, frame, model_names, ct, influx_client, client_type)
     end_time = time()
 
     fps = 1 / np.round(end_time - start_time, 2)

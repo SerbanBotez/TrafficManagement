@@ -32,5 +32,4 @@ SERVER:
   PKG_SIZE: 1024
 DATABASE:
   ORG: "TrafficManagementOrganization"
-  TOKEN: '8OQVJ79gKTjoLPuaQGItdz8XOb_MaRdLGErz5I6TK0wJI68sXXeIaaKYL3j0tdKxUupCaSKtlD5lzrnovu-HXw'
   URL: "https://westeurope-1.azure.cloud2.influxdata.com"

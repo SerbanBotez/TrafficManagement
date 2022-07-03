@@ -11,6 +11,11 @@ config = OmegaConf.load('../../../config.yaml')
 def read_sensor_data(socket):
     weather_list = ['sunny', 'rainy', 'cloudy', 'thunderstorm', 'heavy_rain', 'snowy']
 
+    data = 'sensor'
+    encoded_data = data.encode('utf-8')
+    socket.send(struct.pack('Q', len(encoded_data)))
+    socket.send(bytes(encoded_data))
+
     while True:
         current_weather = random.choice(weather_list)
         current_temperature = random.randint(20, 22)
